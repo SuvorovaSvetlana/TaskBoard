@@ -3,6 +3,7 @@
 #launch.json folder
 .vscode/
 node_modules
+/.env
 #Cache folder
 .alcache/
 #Symbols folder
