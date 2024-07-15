@@ -1,15 +1,18 @@
 const express = require('express');
-const mongoose = require('mongoose');
-const dotenv = require('dotenv').config();
+const userRouter = require('./routers/users')
 const app = express();
+const dotenv = require('dotenv').config();
+require('./db/mongoose');
 
 const PORT = process.env.PORT;
-const MONGO_URL = process.env.MONGO_URL;
-mongoose.connect(MONGO_URL).then(()=> console.log('connected'))
 
-app.get('/', (req, res) => { 
-      res.send('Hello ...')
-})
+app.use(express.json());
+app.use(userRouter)
+
+
 app.listen(PORT, ()=>{
       console.log(`App is running on ${PORT}`)
 })
+
+
+
