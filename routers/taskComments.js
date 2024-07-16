@@ -14,7 +14,7 @@ router.get('/taskComments/:id', async(req, res)=>{
       try {
             const taskComment = await TaskComment.findById({_id: req.params.id})
             if (!taskComment) {
-                  res.status(400).send({error: "taskComment not found"})
+                  res.status(400).send({error: "Task Comment not found"})
             } else {
                   res.status(200).send(taskComment)
             }
@@ -23,7 +23,6 @@ router.get('/taskComments/:id', async(req, res)=>{
       }
 })
 router.post('/taskComments', async(req, res)=>{
-      console.log(req.body)
       const taskComment = new TaskComment(req.body);
       try {
             await taskComment.save()
