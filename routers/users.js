@@ -39,6 +39,8 @@ router.post('/users', async(req, res) => {
 })
 
 router.patch('/users/:id', async(req, res) =>{
+      const filter = {_id: req.params.id}
+      console.log(filter)
       try{
             const result =  await User.findOneAndUpdate({_id: req.params.id}, {name: req.body.name},{new: true})
             res.status(200).send(result)  
@@ -52,8 +54,7 @@ router.delete('/users/:id', async(req, res) => {
             res.send("User deleted")
       }catch(error){
            res.status(400).send(error)
-      }
-     
+      } 
 })
 
 module.exports = router;

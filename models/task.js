@@ -6,10 +6,9 @@ const taskSchema = new mongoose.Schema({
       description: {type: String, required: true},
       executor: {type: String},
       type: {type: []},
-      staus: {type: [], default: "new"},
-      creationDate: { type: Date, default: Date.now },
-      changesDate: { type: Date, default: Date.now },
-      deadline: { type: Date, default: Date.now },
-})
+      status: {type: [], default: "new"},
+      deadline: { type: Date, default: Date.now()}}, 
+      { timestamps: true })
+
 const Task = mongoose.model("Task", taskSchema);
 module.exports = Task;
