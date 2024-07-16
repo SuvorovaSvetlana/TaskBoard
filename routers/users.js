@@ -39,8 +39,6 @@ router.post('/users', async(req, res) => {
 })
 
 router.patch('/users/:id', async(req, res) =>{
-      const filter = {_id: req.params.id}
-      console.log(filter)
       try{
             const result =  await User.findOneAndUpdate({_id: req.params.id}, {name: req.body.name},{new: true})
             res.status(200).send(result)  

@@ -8,7 +8,8 @@ const taskSchema = new mongoose.Schema({
       type: {type: []},
       status: {type: [], default: "new"},
       deadline: { type: Date, default: Date.now()}}, 
-      { timestamps: true })
+      { timestamps: true }
+)
 
 const Task = mongoose.model("Task", taskSchema);
 module.exports = Task;
