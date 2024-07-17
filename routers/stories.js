@@ -38,6 +38,7 @@ router.patch('/stories/:id', async(req, res)=>{
             description: req.body.description,
             estimation: req.body.estimation,
             totalTime: req.body.totalTime,
+            tasks: req.body.tasks,
       }
       try {
             const story = await Story.findByIdAndUpdate(filter, update, {new:true})
