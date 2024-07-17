@@ -52,7 +52,7 @@ router.patch('/stories/:id', async(req, res)=>{
 router.delete('/stories/:id', async(req, res)=>{
       try {
             await Story.deleteOne({_id: req.params.id})
-           res.send("Story deletad")
+            res.send("Story deleted")
       } catch (error) {
             res.status(400).send(error)
       }

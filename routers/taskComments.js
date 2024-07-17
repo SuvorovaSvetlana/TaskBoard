@@ -35,7 +35,7 @@ router.patch('/taskComments/:id', async(req, res)=>{
       const filter = {_id: req.params.id};
       const update = {
             text: req.body.text,
-            author: req.body.author,
+           _author: req.body._author,
       }
       try {
             const taskComment = await TaskComment.findByIdAndUpdate(filter, update, {new:true})

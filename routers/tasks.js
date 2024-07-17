@@ -42,9 +42,9 @@ router.patch('/tasks/:id', async (req, res)=>{
       const filter = {_id: req.params.id};
       const update = {
             title: req.body.title,
-            author: req.body.author,
             description: req.body.description,
-            executor: req.body.executor,
+            _author: req.body._author,
+            _executor: req.body._executor,
             type: req.body.type,
             status: req.body.status,
             deadline: req.body.deadline}
