@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const {Schema} = mongoose;
 
 const storySchema = new mongoose.Schema({
-      titel: {type: String, required: true},
+      title: {type: String, required: true},
       description: {type: String, required: true},
       estimation: {type: Number, required: true},
       totalTime: {type: Number, required: true},
