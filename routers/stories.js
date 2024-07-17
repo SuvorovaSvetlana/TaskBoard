@@ -15,6 +15,7 @@ router.get('/stories/:id', async(req, res)=>{
             const story = await Story.findById({_id:req.params.id});
             if(!story){
                   res.status(400).send({error: "Story not found"})
+                  return
             }
             res.status(200).send(story)
       } catch (error) {
@@ -44,6 +45,7 @@ router.patch('/stories/:id', async(req, res)=>{
             const story = await Story.findByIdAndUpdate(filter, update, {new:true})
             if(!story){
                   res.status(404).send({error:'story comment not found'})
+                  return
             }
             res.status(200).send(story)
       } catch (error) {

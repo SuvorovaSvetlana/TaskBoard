@@ -15,6 +15,7 @@ router.get('/taskComments/:id', async(req, res)=>{
             const taskComment = await TaskComment.findById({_id: req.params.id})
             if (!taskComment) {
                   res.status(400).send({error: "Task Comment not found"})
+                  return
             } else {
                   res.status(200).send(taskComment)
             }
@@ -41,6 +42,7 @@ router.patch('/taskComments/:id', async(req, res)=>{
             const taskComment = await TaskComment.findByIdAndUpdate(filter, update, {new:true})
             if(!taskComment){
                   res.status(404).send({error:'task comment not found'})
+                  return
             }
             res.status(200).send(taskComment)
       } catch (error) {

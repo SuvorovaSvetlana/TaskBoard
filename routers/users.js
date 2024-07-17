@@ -7,6 +7,7 @@ router.get('/users', async(req, res) => {
            const users = await User.find({});
            if(!users){
                   res.status(404).send({error:"Users not found"})
+                  return
            }else{
                   res.status(200).send(users)
            }
@@ -20,6 +21,7 @@ router.get('/users/:id', async (req, res) => {
            const user = await User.findById({_id: req.params.id})
            if(!user){
                   res.status(404).send({error:"User not found"})
+                  return
            }else{
                   res.status(200).send(user)
            }

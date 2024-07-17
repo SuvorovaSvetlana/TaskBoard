@@ -7,6 +7,7 @@ router.get('/tasks', async (req, res) => {
             const tasks = await Task.find({})
             if (!tasks) {
                   res.status(404).send({error: 'Tasks not found'})
+                  return
             } else {
                   res.status(200).send(tasks)
             }
@@ -20,6 +21,7 @@ router.get('/tasks/:id', async (req, res) => {
             const task = await Task.findById({_id: req.params.id})
             if (!task) {
                   res.status(404).send({error:"Task not found"})
+                  return
             } else {
                   res.status(200).send(task)
             }
@@ -52,6 +54,7 @@ router.patch('/tasks/:id', async (req, res)=>{
             const task =  await Task.findByIdAndUpdate (filter, update, {new:true});
             if(!task){
                   res.status(404).send({error:'Task not found'})
+                  return
             }
             res.status(200).send(task)
       } catch (error) {
