@@ -22,6 +22,17 @@ router.get('/stories/:id', async(req, res)=>{
             res.status(400).send(error)
       }   
 })
+router.get('/trackedTimeByOneStory', async(req,res)=>{
+     try {
+      const timeByStory = await Story.find();
+      console.log(timeByStory)
+     } catch (error) {
+        res.status(400).send(error)
+     } 
+      
+    
+})
+
 router.post('/stories', async(req, res)=>{
       const story = new Story(req.body);
       try {
@@ -39,7 +50,7 @@ router.patch('/stories/:id', async(req, res)=>{
             description: req.body.description,
             estimation: req.body.estimation,
             totalTime: req.body.totalTime,
-            tasks: req.body.tasks,
+            task: req.body.task,
       }
       try {
             const story = await Story.findByIdAndUpdate(filter, update, {new:true})
