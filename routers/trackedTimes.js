@@ -1,7 +1,6 @@
 const express = require('express');
 const TrackedTime = require('../models/trackedTime.js')
 
-
 const router = new express.Router();
 
 router.get('/trackedTime', async (req, res) => {
@@ -53,7 +52,6 @@ router.patch('/trackedTime/:id', async (req, res) => {
             time: req.body.time}
       try {
             const trackedTime = await TrackedTime.findByIdAndUpdate(filter, update, {new:true})
-            console.log(trackedTime)
             if(!trackedTime){
                   res.status(404).send({error:'Tracked time not found'})
                   return

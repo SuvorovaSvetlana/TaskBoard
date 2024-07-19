@@ -55,7 +55,7 @@ router.patch('/stories/:id', async(req, res)=>{
       try {
             const story = await Story.findByIdAndUpdate(filter, update, {new:true})
             if(!story){
-                  res.status(404).send({error:'story comment not found'})
+                  res.status(404).send({error:'story not found'})
                   return
             }
             res.status(200).send(story)

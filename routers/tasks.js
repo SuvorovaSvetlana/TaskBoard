@@ -30,6 +30,16 @@ router.get('/tasks/:id', async (req, res) => {
         }
 })
 
+router.get('/trackedTimeByOneStory/:id', async(req, res)=>{
+   
+      try {
+            const trackedTimeByOneStory = await Task.findById({_id: req.params.id}).populate('executor')
+            res.status(200).send(trackedTimeByOneStory)
+      } catch (error) {
+            res.status(400).send(error);
+      }
+ })
+
 router.post('/tasks', async(req, res) => {
       const task = new Task(req.body)
       try{
@@ -45,10 +55,11 @@ router.patch('/tasks/:id', async (req, res)=>{
       const update = {
             title: req.body.title,
             description: req.body.description,
-            _author: req.body._author,
-            _executor: req.body._executor,
             type: req.body.type,
             status: req.body.status,
+            executor: req.body.executor,
+            trackedTime: req.body.trackedTime,
+            story: req.body.story,
             deadline: req.body.deadline}
       try {
             const task =  await Task.findByIdAndUpdate (filter, update, {new:true});
