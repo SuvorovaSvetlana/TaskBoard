@@ -22,15 +22,14 @@ router.get('/stories/:id', async(req, res)=>{
             res.status(400).send(error)
       }   
 })
-router.get('/trackedTimeByOneStory', async(req,res)=>{
+router.get('/trackedTime/:id', async(req,res)=>{
      try {
-      const timeByStory = await Story.find();
+      const timeByStory = await Story.findById({_id: req.params.id});
+     
       console.log(timeByStory)
      } catch (error) {
         res.status(400).send(error)
      } 
-      
-    
 })
 
 router.post('/stories', async(req, res)=>{

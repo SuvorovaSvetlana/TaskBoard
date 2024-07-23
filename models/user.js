@@ -3,7 +3,7 @@ const {Schema} = mongoose;
 
 const userSchema = new mongoose.Schema({
       name: {type:String, required: true},
-      tasks: [{type: Schema.Types.ObjectId, ref: 'task'}],
+      tasks: [{type: Schema.Types.ObjectId, ref: 'Task'}],
 })
 
 const User = mongoose.model("User", userSchema);

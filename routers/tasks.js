@@ -1,5 +1,7 @@
 const express = require('express');
 const Task = require('../models/task.js');
+const { default: mongoose } = require('mongoose');
+const Trackedtime = require('../models/trackedTime.js');
 const router = new express.Router();
 
 router.get('/tasks', async (req, res) => {
@@ -30,14 +32,25 @@ router.get('/tasks/:id', async (req, res) => {
         }
 })
 
-router.get('/trackedTimeByOneStory/:id', async(req, res)=>{
+router.get('/trackedTimeByOneTask/:id', async(req, res)=>{
    
       try {
-            const trackedTimeByOneStory = await Task.findById({_id: req.params.id}).populate('executor')
-            res.status(200).send(trackedTimeByOneStory)
+            const trackedTimeByOneStory = await Task.findById({_id: req.params.id}).populate('trackedTime');
+            const trackedTime = trackedTimeByOneStory.trackedTime;
+           if(trackedTime){
+            let fulltime =  trackedTime.reduce(function (akk, item) {
+                  return akk + item.time
+            }, 0)
+            console.log(fulltime)
+            res.status(200).send({trackedTime, fulltime})
+            return
+           }
+           res.send({error:"No tracked time yet"})
+           
       } catch (error) {
             res.status(400).send(error);
       }
+
  })
 
 router.post('/tasks', async(req, res) => {

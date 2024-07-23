@@ -7,8 +7,8 @@ const taskSchema = new mongoose.Schema({
       type: {type: String, enum: ['estimation', 'development', 'testing', 'debugging']},
       status: {type: String, enum: ['todo', 'doing', 'for approval', 'reopend', 'done']},
       executor: [{type: Schema.Types.ObjectId, ref: "User"}],
-      trackedTime: [{type: Schema.Types.ObjectId, ref:'trackedTime'}],
-      story: {type: Schema.Types.ObjectId, ref:'story'},
+      trackedTime: [{type: Schema.Types.ObjectId, ref:'TrackedTime'}],
+      story: {type: Schema.Types.ObjectId, ref:'Story'},
       deadline: { type: Date, default: Date.now()}}, 
       { timestamps: true }
 )
