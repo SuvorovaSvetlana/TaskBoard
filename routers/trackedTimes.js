@@ -5,7 +5,7 @@ const router = new express.Router();
 
 router.get('/trackedTime', async (req, res) => {
       try {
-            const trackedTime = await TrackedTime.find({});
+            const trackedTime = await TrackedTime.find();
             if(!trackedTime){
                   res.status(404).send({error: 'trackedTime not found'})
                   return
@@ -18,22 +18,30 @@ router.get('/trackedTime', async (req, res) => {
       }
 })
 
-router.get('/trackedTime/:id', async (req, res) => {
+router.get('/trackedTime/:id', async(req, res) =>{
       try {
-            const trackedTime = await TrackedTime.findById({_id: req.params.id})
-            if (!task) {
-                  res.status(404).send({error:"TrackedTime not found"})
+            const one = await TrackedTime.findById({_id: req.params.id})
+            if(!one){
+                  res.status(404).send({error: 'tracked time not found'})
                   return
             } else {
-                  res.status(200).send(trackedTime)
+                  res.status(200).send(one)
             }
-            
       } catch (error) {
-            res.status(400).send(error);
+            res.status(400).send(error)
       }
 })
 
-
+// router.get('/trackedtime/:taskId', async (req, res) =>{
+//       const id = req.params.taskId;
+//       console.log(id)
+//       try {
+//             const time = await TrackedTime.find().sort({"time": 3})
+//             res.send(time)
+//       } catch (error) {
+//             res.status(400).send(error)
+//       }
+// })
 router.post('/trackedTime', async (req, res) => {
       const trackedTime = new TrackedTime(req.body);
       try {

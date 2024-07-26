@@ -1,7 +1,5 @@
 const express = require('express');
 const Task = require('../models/task.js');
-const { default: mongoose } = require('mongoose');
-const Trackedtime = require('../models/trackedTime.js');
 const router = new express.Router();
 
 router.get('/tasks', async (req, res) => {

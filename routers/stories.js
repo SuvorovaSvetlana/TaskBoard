@@ -10,6 +10,37 @@ router.get('/stories', async(req, res)=>{
             res.status(400).send(error)
       }
 })
+
+router.get('/stories/trackedTime/:id', async (req, res) =>{
+      const id = req.params.id;
+      try {
+           // const tasks = await Story.find()
+            const tasks = await Story.aggregate([
+                  {
+                        $match: {
+                              _id: ObjectId(id),
+                        },
+                  },
+                  {
+                        $lookup: {
+                              from: "tasks",
+                              localField: "trackedTime",
+                              foreignField: "task",
+                              as: "tasks_by_stories",
+                        },
+                  },
+            ])
+           if (!tasks) {
+                  res.send({error: "Story not found"})
+           } else {
+            res.send(tasks)
+           }
+        
+      } catch (error) {
+            res.status(400).send(error)
+      }
+})
+
 router.get('/stories/:id', async(req, res)=>{
       try {
             const story = await Story.findById({_id:req.params.id});
@@ -19,17 +50,8 @@ router.get('/stories/:id', async(req, res)=>{
             }
             res.status(200).send(story)
       } catch (error) {
-            res.status(400).send(error)
+            res.status(400).send({error: ' error'})
       }   
-})
-router.get('/trackedTime/:id', async(req,res)=>{
-     try {
-      const timeByStory = await Story.findById({_id: req.params.id});
-     
-      console.log(timeByStory)
-     } catch (error) {
-        res.status(400).send(error)
-     } 
 })
 
 router.post('/stories', async(req, res)=>{
