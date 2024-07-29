@@ -1,3 +1,4 @@
+const Mongoose = require('mongoose')
 const express = require('express');
 const Story = require('../models/story.js');
 const router = new express.Router();
@@ -12,23 +13,22 @@ router.get('/stories', async(req, res)=>{
 })
 
 router.get('/stories/trackedTime/:id', async (req, res) =>{
-      const id = req.params.id;
+      const id = req.params.id
       try {
-           // const tasks = await Story.find()
             const tasks = await Story.aggregate([
                   {
                         $match: {
-                              _id: ObjectId(id),
-                        },
+                              _id: new Mongoose.Types.ObjectId(`${id}`)
+                        }
                   },
                   {
                         $lookup: {
                               from: "tasks",
                               localField: "trackedTime",
                               foreignField: "task",
-                              as: "tasks_by_stories",
-                        },
-                  },
+                              as: "tasks_by_stories"
+                        }
+                  }
             ])
            if (!tasks) {
                   res.send({error: "Story not found"})
@@ -40,6 +40,8 @@ router.get('/stories/trackedTime/:id', async (req, res) =>{
             res.status(400).send(error)
       }
 })
+
+
 
 router.get('/stories/:id', async(req, res)=>{
       try {
