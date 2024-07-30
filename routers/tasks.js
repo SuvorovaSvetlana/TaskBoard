@@ -1,3 +1,5 @@
+const Mongoose = require('mongoose')
+
 const express = require('express');
 const Task = require('../models/task.js');
 const router = new express.Router();
@@ -16,6 +18,54 @@ router.get('/tasks', async (req, res) => {
       }
 })
 
+router.get('/tasks/spentTime/:id', async (req, res) =>{
+    const id = req.params.id;
+      try {
+            const fullTime = await Task.aggregate([
+                  {
+                        $match:{story: new Mongoose.Types.ObjectId(`${id}`)}
+                  },
+                  {
+                        $unwind: { path: '$trackedTime'}
+                  },
+                  {
+                        $lookup:{
+                              from: 'trackedtimes',
+                              localField: 'trackedTime',
+                              foreignField: '_id',
+                              as: 'time'
+                        }
+                  },
+                  {
+                        $unwind: {path: '$time'}
+                  },
+                  {
+                        $addFields: {
+                              time: '$time.time'
+                        }
+                  },
+                  {
+                        $project: { '_id': 0, 'time': 1}
+                        
+                  },
+                  {
+                        $group: {
+                              _id: 'time',
+                              spentTime: { $sum: '$time'}
+                        }
+                  }
+
+            ])
+            if(!fullTime){
+                  res.status(404).send({error: 'Time not tracked yet'})
+                  return
+            }
+            res.status(200).send(fullTime)
+      } catch (error) {
+            res.status(400).send(error)
+      }
+})
+
 router.get('/tasks/:id', async (req, res) => {
         try {
             const task = await Task.findById({_id: req.params.id})
@@ -29,6 +79,9 @@ router.get('/tasks/:id', async (req, res) => {
             res.status(400).send(error)
         }
 })
+
+
+
 
 router.get('/trackedTimeByOneTask/:id', async(req, res)=>{
    

@@ -32,16 +32,6 @@ router.get('/trackedTime/:id', async(req, res) =>{
       }
 })
 
-// router.get('/trackedtime/:taskId', async (req, res) =>{
-//       const id = req.params.taskId;
-//       console.log(id)
-//       try {
-//             const time = await TrackedTime.find().sort({"time": 3})
-//             res.send(time)
-//       } catch (error) {
-//             res.status(400).send(error)
-//       }
-// })
 router.post('/trackedTime', async (req, res) => {
       const trackedTime = new TrackedTime(req.body);
       try {

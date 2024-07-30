@@ -42,7 +42,6 @@ router.get('/stories/trackedTime/:id', async (req, res) =>{
 })
 
 
-
 router.get('/stories/:id', async(req, res)=>{
       try {
             const story = await Story.findById({_id:req.params.id});
